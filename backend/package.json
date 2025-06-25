@@ -1,0 +1,35 @@
+{
+  "name": "venuespot-backend",
+  "version": "1.0.0",
+  "description": "Backend API server for VenueSpot venue marketplace",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "init-db": "node migrations/init-database.js"
+  },
+  "keywords": [
+    "venue",
+    "marketplace",
+    "api",
+    "sqlite"
+  ],
+  "author": "VenueSpot",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "express-validator": "^6.15.0",
+    "helmet": "^7.0.0",
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

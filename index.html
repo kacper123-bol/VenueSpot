@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VenueSpot - Venue Marketplace</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/admin-styles.css">
+    <link rel="stylesheet" href="assets/css/lovable-dark-theme.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">🏪 VenueSpot</div>
+                <ul class="nav-links">
+                    <li><a href="#marketplace">Marketplace</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" onclick="ModalManager.open('loginModal')">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Maximize Your Venue's Profits</h1>
+                <p>A platform connecting venue owners with customers. Sell empty spots at promotional prices!</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="ModalManager.open('ownerModal')">I'm a Venue Owner</button>
+                    <button class="btn btn-secondary" onclick="ModalManager.open('customerModal')">Looking for a Venue</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: #333;">Why Choose VenueSpot?</h2>
+                <p style="text-align: center; color: #666; font-size: 1.2rem;">Modern solution for the hospitality and event industry</p>
+                
+                <div class="features-grid" id="featuresContainer">
+                    <!-- Features will be inserted by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section class="marketplace" id="marketplace">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: #333;">Current Offers</h2>
+                <p style="text-align: center; color: #666; font-size: 1.2rem;">Find the perfect venue for your event</p>
+                
+                <div class="marketplace-grid" id="venuesContainer">
+                    <!-- Venues will be inserted by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Get Started?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Join the platform and start maximizing your venue's potential today!</p>
+                <button class="btn btn-primary" onclick="ModalManager.open('ownerModal')">Add Your Venue</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals Container -->
+    <div id="modalsContainer">
+        <!-- Modals will be inserted by JavaScript -->
+    </div>
+
+    <!-- API Configuration -->
+    <script>
+    window.CONFIG = {
+        API_BASE_URL: 'http://localhost:3001/api'
+    };
+    </script>
+
+    <!-- JavaScript Files - Load in dependency order -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/utils/ui-components.js"></script>
+    <script src="assets/js/templates/form-templates.js"></script>
+    <script src="assets/js/components/database-manager.js"></script>
+    <script src="assets/js/components/auth-manager.js"></script>
+    <script src="assets/js/components/admin-manager.js"></script>
+    <script src="assets/js/components/modal-manager.js"></script>
+    <script src="assets/js/components/venue-manager.js"></script>
+    <script src="assets/js/components/feature-manager.js"></script>
+    <script src="assets/js/components/animation-manager.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

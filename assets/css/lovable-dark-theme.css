@@ -1,0 +1,476 @@
+/* Lovable-Inspired Dark Theme for VenueSpot */
+
+/* Root Variables for Dark Theme */
+:root {
+    --primary-bg: #0f1419;
+    --secondary-bg: #1a202c;
+    --card-bg: #2d3748;
+    --accent-bg: #4a5568;
+    --primary-text: #ffffff;
+    --secondary-text: #e2e8f0;
+    --muted-text: #a0aec0;
+    --accent-color: #667eea;
+    --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    --surface-gradient: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    --hero-gradient: linear-gradient(135deg, #0f1419 0%, #1a202c 50%, #2d3748 100%);
+    --border-color: #4a5568;
+    --success-color: #48bb78;
+    --warning-color: #ed8936;
+    --error-color: #f56565;
+}
+
+/* Body Override */
+body {
+    background: var(--hero-gradient);
+    color: var(--primary-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+header {
+    background: rgba(15, 20, 25, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    color: var(--primary-text);
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.nav-links a {
+    color: var(--secondary-text);
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-text);
+    transform: translateY(-1px);
+}
+
+/* Hero Section */
+.hero {
+    background: var(--hero-gradient);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23667eea" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    pointer-events: none;
+}
+
+.hero h1 {
+    color: var(--primary-text);
+    font-weight: 800;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    color: var(--secondary-text);
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-text);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(102, 126, 234, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Section Styles */
+.features {
+    background: var(--secondary-bg);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+.features h2,
+.marketplace h2,
+.contact-section h2 {
+    color: var(--primary-text);
+}
+
+.features p,
+.marketplace p {
+    color: var(--muted-text);
+}
+
+/* Feature Cards */
+.feature-card {
+    background: var(--surface-gradient);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(102, 126, 234, 0.5);
+}
+
+.feature-card h3 {
+    color: var(--primary-text);
+}
+
+.feature-card p {
+    color: var(--secondary-text);
+}
+
+.feature-icon {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Marketplace */
+.marketplace {
+    background: rgba(45, 55, 72, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+}
+
+/* Venue Cards */
+.venue-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.venue-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(102, 126, 234, 0.5);
+}
+
+.venue-image {
+    background: var(--accent-gradient);
+    position: relative;
+}
+
+.venue-image::before {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.venue-name {
+    color: var(--primary-text);
+    font-weight: 600;
+}
+
+.venue-location {
+    color: var(--muted-text);
+}
+
+.price-tag {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.price-tag.discount {
+    background: linear-gradient(45deg, var(--success-color), #38a169);
+}
+
+/* Contact Section */
+.contact-section {
+    background: rgba(26, 32, 44, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.contact-section h2 {
+    color: var(--primary-text);
+}
+
+.contact-section p {
+    color: var(--secondary-text);
+}
+
+/* Modal Styles */
+.modal {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+}
+
+.modal-content h2,
+.modal-content h3 {
+    color: var(--primary-text);
+}
+
+.modal-content p,
+.modal-content label {
+    color: var(--secondary-text);
+}
+
+.close {
+    color: var(--muted-text);
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--primary-text);
+}
+
+/* Form Styles */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background: var(--secondary-bg);
+    border: 2px solid var(--border-color);
+    color: var(--primary-text);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--muted-text);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--accent-color);
+    background: var(--card-bg);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Search Results */
+.search-results-header {
+    background: var(--surface-gradient);
+    border: 1px solid var(--border-color);
+}
+
+.search-results-header::before {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="search-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23search-pattern)"/></svg>');
+}
+
+.back-to-all-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--primary-text);
+}
+
+.back-to-all-btn:hover {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: var(--accent-color);
+}
+
+.no-results {
+    background: var(--surface-gradient);
+    border: 1px solid var(--border-color);
+    color: var(--secondary-text);
+}
+
+.no-results h3 {
+    color: var(--primary-text);
+}
+
+.search-suggestions {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.search-suggestions h4 {
+    color: var(--primary-text);
+}
+
+.search-suggestions li {
+    color: var(--secondary-text);
+    border-bottom-color: var(--border-color);
+}
+
+/* Status and Badge Updates */
+.status-badge.status-pending {
+    background: rgba(237, 137, 54, 0.2);
+    color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+.status-badge.status-approved {
+    background: rgba(72, 187, 120, 0.2);
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.status-badge.status-rejected {
+    background: rgba(245, 101, 101, 0.2);
+    color: var(--error-color);
+    border-color: var(--error-color);
+}
+
+/* Error and Success Messages */
+.error-message {
+    background: rgba(245, 101, 101, 0.1);
+    color: var(--error-color);
+    border-color: rgba(245, 101, 101, 0.3);
+}
+
+.success-message {
+    background: rgba(72, 187, 120, 0.1);
+    color: var(--success-color);
+    border-color: rgba(72, 187, 120, 0.3);
+}
+
+/* Profile Stats */
+.profile-stat {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.profile-stat-value {
+    color: var(--accent-color);
+}
+
+.profile-stat-label {
+    color: var(--muted-text);
+}
+
+/* Loading States */
+.search-loading {
+    background: rgba(15, 20, 25, 0.95);
+    color: var(--primary-text);
+    border: 1px solid var(--border-color);
+}
+
+/* Enhanced Hover Effects for Dark Theme */
+.venue-card:hover .venue-name {
+    color: var(--accent-color);
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+}
+
+/* Search Mode Enhancements */
+.search-mode .venue-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 25px 45px rgba(102, 126, 234, 0.15);
+}
+
+.search-match-highlight {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Scrollbar Styling for Dark Theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-bg);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Selection Colors */
+::selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: var(--primary-text);
+}
+
+::-moz-selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: var(--primary-text);
+}
+
+/* Animation Enhancements */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments for Dark Theme */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .btn {
+        padding: 0.875rem 1.5rem;
+    }
+}

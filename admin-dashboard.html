@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VenueSpot - Admin Dashboard</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/admin-dashboard.css">
+    <link rel="stylesheet" href="assets/css/admin-dark-theme.css">
+    
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-logo">
+                <h1>🛡️ VenueSpot Admin</h1>
+            </div>
+            <div class="admin-user-info">
+                <span id="adminUserName">Loading...</span>
+                <button class="btn btn-secondary btn-sm" onclick="AdminDashboard.logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-tab="overview">📊 Overview</a></li>
+                    <li><a href="#" class="nav-link" data-tab="users">👥 Users</a></li>
+                    <li><a href="#" class="nav-link" data-tab="analytics">📈 Analytics</a></li>
+                    <li><a href="#" class="nav-link" data-tab="database">🗄️ Database</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <h4>Quick Stats</h4>
+                <div class="stat-item">
+                    <span class="stat-label">Total Users</span>
+                    <span class="stat-value" id="quickTotalUsers">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Active Sessions</span>
+                    <span class="stat-value" id="quickActiveSessions">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Venues</span>
+                    <span class="stat-value" id="quickTotalVenues">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Revenue</span>
+                    <span class="stat-value" id="quickTotalRevenue">-</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Overview Tab -->
+            <div id="overview-tab" class="tab-content active">
+                <div class="tab-header">
+                    <h2>Dashboard Overview</h2>
+                    <div class="tab-actions">
+                        <select id="overviewPeriod" onchange="AdminDashboard.refreshOverview()">
+                            <option value="7">Last 7 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" onclick="AdminDashboard.refreshOverview()">🔄 Refresh</button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalUsers">0</div>
+                            <div class="stat-label">Total Users</div>
+                            <div class="stat-change positive" id="userChange">+0%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏢</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalVenues">0</div>
+                            <div class="stat-label">Total Venues</div>
+                            <div class="stat-change positive" id="venueChange">+0%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalRevenue">$0</div>
+                            <div class="stat-label">Total Revenue</div>
+                            <div class="stat-change positive" id="revenueChange">+0%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="confirmedBookings">0</div>
+                            <div class="stat-label">Confirmed Bookings</div>
+                            <div class="stat-change positive" id="bookingChange">+0%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>User Registration Trends</h3>
+                        <canvas id="userTrendsChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Venue Performance</h3>
+                        <canvas id="venuePerformanceChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="activity-section">
+                    <h3>Recent Activity</h3>
+                    <div id="recentActivity" class="activity-list">
+                        <div class="loading">Loading recent activity...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="users-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>User Management</h2>
+                    <div class="tab-actions">
+                        <button class="btn btn-primary btn-sm" onclick="AdminDashboard.exportUsers()">📥 Export</button>
+                        <button class="btn btn-secondary btn-sm" onclick="AdminDashboard.refreshUsers()">🔄 Refresh</button>
+                    </div>
+                </div>
+
+                <!-- Search and Filter Section -->
+                <div class="search-section">
+                    <div class="search-controls">
+                        <div class="search-input-group">
+                            <input type="text" id="userSearch" placeholder="Search by ID, name, or email..." onkeyup="AdminDashboard.searchUsers()">
+                            <button class="btn btn-primary" onclick="AdminDashboard.searchUsers()">🔍 Search</button>
+                        </div>
+                        <div class="filter-controls">
+                            <select id="userTypeFilter" onchange="AdminDashboard.filterUsers()">
+                                <option value="">All User Types</option>
+                                <option value="customer">Customers</option>
+                                <option value="owner">Owners</option>
+                                <option value="admin">Admins</option>
+                            </select>
+                            <select id="userStatusFilter" onchange="AdminDashboard.filterUsers()">
+                                <option value="">All Statuses</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Table -->
+                <div class="table-container">
+                    <table class="admin-table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th onclick="AdminDashboard.sortUsers('id')">ID <span class="sort-indicator"></span></th>
+                                <th onclick="AdminDashboard.sortUsers('first_name')">Name <span class="sort-indicator"></span></th>
+                                <th onclick="AdminDashboard.sortUsers('email')">Email <span class="sort-indicator"></span></th>
+                                <th onclick="AdminDashboard.sortUsers('user_type')">Type <span class="sort-indicator"></span></th>
+                                <th onclick="AdminDashboard.sortUsers('created_at')">Created <span class="sort-indicator"></span></th>
+                                <th onclick="AdminDashboard.sortUsers('is_active')">Status <span class="sort-indicator"></span></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr><td colspan="7" class="loading">Loading users...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-section">
+                    <div class="pagination-info">
+                        <span id="usersCount">0 users</span>
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm" id="prevUsersPage" onclick="AdminDashboard.changePage(-1)" disabled>Previous</button>
+                        <span id="usersPageInfo">Page 1 of 1</span>
+                        <button class="btn btn-sm" id="nextUsersPage" onclick="AdminDashboard.changePage(1)" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Analytics & Reports</h2>
+                    <div class="tab-actions">
+                        <select id="analyticsPeriod" onchange="AdminDashboard.refreshAnalytics()">
+                            <option value="7">Last 7 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Revenue Analysis</h3>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>User Activity</h3>
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Venue Types Distribution</h3>
+                        <canvas id="venueTypesChart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Popular Locations</h3>
+                        <canvas id="locationsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database Tab -->
+            <div id="database-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Database Management</h2>
+                    <div class="tab-actions">
+                        <button class="btn btn-primary btn-sm" onclick="AdminDashboard.exportDatabase()">📥 Export Database</button>
+                        <button class="btn btn-secondary btn-sm" onclick="AdminDashboard.refreshDatabase()">🔄 Refresh</button>
+                    </div>
+                </div>
+
+                <!-- Database Tables -->
+                <div class="database-section">
+                    <h3>Database Tables</h3>
+                    <div id="databaseTables" class="database-tables">
+                        <div class="loading">Loading database tables...</div>
+                    </div>
+                </div>
+
+                <!-- Query Interface -->
+                <div class="query-section">
+                    <h3>Query Interface</h3>
+                    <div class="query-controls">
+                        <textarea id="sqlQuery" placeholder="Enter SELECT query here..." rows="4"></textarea>
+                        <button class="btn btn-primary" onclick="AdminDashboard.executeQuery()">Execute Query</button>
+                    </div>
+                    <div id="queryResults" class="query-results">
+                        <p>Query results will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div id="userDetailsModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Details</h3>
+                <button class="close-btn" onclick="AdminDashboard.closeModal('userDetailsModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="userDetailsContent">
+                <!-- User details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- API Configuration -->
+    <script>
+    window.CONFIG = {
+        API_BASE_URL: 'http://localhost:3001/api'
+    };
+    </script>
+
+    <!-- JavaScript Files -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/admin-dashboard.js"></script>
+</body>
+</html>
